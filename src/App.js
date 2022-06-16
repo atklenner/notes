@@ -53,6 +53,12 @@ const App = (props) => {
       });
   };
 
+  const deleteNote = (id) => {
+    noteService
+      .deleteNote(id)
+      .then(() => setNotes(notes.filter((note) => note.id !== id)));
+  };
+
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
       setNotes(initialNotes);
@@ -74,6 +80,7 @@ const App = (props) => {
             key={note.id}
             note={note}
             toggleImportance={() => toggleImportanceOf(note.id)}
+            deleteNote={() => deleteNote(note.id)}
           />
         ))}
       </ul>
